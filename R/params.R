@@ -27,6 +27,32 @@ singleChoiceParamValue <- function(parameters, name) {
   return(XML::xmlValue(parameters[sprintf("//*[@Name='%s']/Values/Item", name)][[value + 1]]))
 }
 
+#' Multiple choice value
+#'
+#' Extract the value selected in a \code{MultiChoiceParam}.
+#' @param parameters The parameters object (see \code{\link{parseParameters}})
+#' @param name The name of the parameter
+#' @examples
+#' write('<MultiChoiceParam Name="test_multi">\n<Value>\n<Item>1</Item>\n<Item>2</Item>\n</Value>\n
+#' <Values>\n<Item>A</Item>\n<Item>B</Item>\n</Values>\n</MultiChoiceParam>', file='tmp.xml')
+#' parameters <- parseParameters("tmp.xml")
+#' multiChoiceParamValue(parameters, "test_multi")
+#' @export
+#' @return The string representing the value
+multiChoiceParamValue <- function(parameters, name) {
+  n<-1
+  le<-length(parameters[sprintf("//*[@Name='%s']/Value/Item", "Number")])
+  results<-c()
+  while (n<=le)
+  {
+    value<-as.numeric(XML::xmlValue(parameters[sprintf("//*[@Name='%s']/Value/Item", name)][[n]]))
+    re<-XML::xmlValue(parameters[sprintf("//*[@Name='%s']/Values/Item", name)][[n]])
+    results[n]<-re
+    n<-n+1
+  }
+  return(results)
+}
+
 #' Int parameter value
 #'
 #' Extract the value chosen in an \code{IntParam}
