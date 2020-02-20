@@ -57,6 +57,21 @@ boolParamValue <- function(parameters, name) {
   as.logical(XML::xmlValue(parameters[[sprintf("//*[@Name='%s']/Value", name)]]))
 }
 
+#' String parameter value
+#'
+#' Extract the value chosen in an \code{StringParam}
+#' @param parameters The parameters object (see \code{\link{parseParameters}})
+#' @param name The name of the parameter
+#' @examples
+#' write('<StringParam Name="test_bool">\n<Value>"test"</Value>\n</StringParam>', file='tmp.xml')
+#' parameters <- parseParameters("tmp.xml")
+#' stringParamValue(parameters, "test_string")
+#' @export
+#' @return The selected boolean
+stringParamValue <- function(parameters, name) {
+  as.string(XML::xmlValue(parameters[[sprintf("//*[@Name='%s']/Value", name)]]))
+}
+
 #' Single choice index
 #'
 #' Extract the index chosen in an \code{BoolParam}
