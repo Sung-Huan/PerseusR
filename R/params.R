@@ -69,7 +69,7 @@ boolParamValue <- function(parameters, name) {
 #' @export
 #' @return The selected boolean
 stringParamValue <- function(parameters, name) {
-  as.string(XML::xmlValue(parameters[[sprintf("//*[@Name='%s']/Value", name)]]))
+  as.character(XML::xmlValue(parameters[[sprintf("//*[@Name='%s']/Value", name)]]))
 }
 
 #' Single choice index
